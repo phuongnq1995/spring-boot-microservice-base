@@ -1,0 +1,3 @@
+[submodule "ecommerce-config-server"]
+	path = ecommerce-config-server
+	url = https://github.com/phuongnq1995/ecommerce-config-server.git
