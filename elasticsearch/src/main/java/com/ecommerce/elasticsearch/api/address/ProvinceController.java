@@ -20,7 +20,7 @@ public class ProvinceController {
     @Qualifier("province-service")
     ElasticeService<ProvinceEntity, ProvinceSource> provinceService;
 
-    @PostMapping("/provincess")
+    @PostMapping("/provinces")
     public ResponseEntity<ResultSetData<ProvinceEntity>> getData(
            @RequestBody ProvinceSource source) {
         return ResponseEntity.ok(provinceService.getListSource(source));

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.elasticsearch.address.entity.ProvinceEntity;
-import com.ecommerce.elasticsearch.address.source.ProvinceSource;
+import com.ecommerce.elasticsearch.address.entity.DistrictEntity;
+import com.ecommerce.elasticsearch.address.source.DistrictSource;
 import com.ecommerce.elasticsearch.component.ElasticeService;
 import com.ecommerce.elasticsearch.component.ResultData;
 import com.ecommerce.elasticsearch.component.ResultSetData;
@@ -18,16 +18,16 @@ public class DistrictController {
 
     @Autowired
     @Qualifier("district-service")
-    ElasticeService<ProvinceEntity, ProvinceSource> provinceService;
+    ElasticeService<DistrictEntity, DistrictSource> districtService;
 
-    @PostMapping("/provincess")
-    public ResponseEntity<ResultSetData<ProvinceEntity>> getData(
-           @RequestBody ProvinceSource source) {
-        return ResponseEntity.ok(provinceService.getListSource(source));
+    @PostMapping("/districts")
+    public ResponseEntity<ResultSetData<DistrictEntity>> getData(
+           @RequestBody DistrictSource source) {
+        return ResponseEntity.ok(districtService.getListSource(source));
     }
 
-    @PostMapping("/provice")
-    public ResponseEntity<ResultData<ProvinceEntity>> createData(@RequestBody ProvinceEntity addressEntity) {
-        return ResponseEntity.ok(provinceService.createSource(addressEntity));
+    @PostMapping("/district")
+    public ResponseEntity<ResultData<DistrictEntity>> createData(@RequestBody DistrictEntity addressEntity) {
+        return ResponseEntity.ok(districtService.createSource(addressEntity));
     }
 }
