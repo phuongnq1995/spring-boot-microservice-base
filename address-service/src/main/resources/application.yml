@@ -7,4 +7,8 @@ spring:  jpa:    database: POSTGRESQL
   datasource:
     platform: postgres    url: jdbc:postgresql://localhost:5432/address    username: postgres
     password: 12345678
-    driver-class-name: org.postgresql.Driver  cloud:    config:      uri: http://localhost:8888  application:    name: address-service
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+    schema:    - classpath:/db/data-commune.sql
+    - classpath:/db/data-district.sql
+    - classpath:/db/data-province.sql  cloud:    config:      uri: http://localhost:8888  application:    name: address-service

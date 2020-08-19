@@ -20,7 +20,7 @@ public class CommuneService implements EcService<CommuneEntity, CommuneSource> {
 
     @Override
     public ResultSetData<CommuneSource> getListSource(CommuneSource source) {
-        Pageable pageable = PageRequest.of(source.getOffset(), source.getLimit());
+        Pageable pageable = PageRequest.of(source.getOffset() - 1, source.getLimit());
         Page<CommuneEntity> page = communeRepo.findByCondition(source.getCode(), source.getName(), 
                 source.getCodeProvince(), source.getCodeDistrict(), pageable);
         return new ResultSetData<CommuneSource>(toResource(page.getContent()), page.getTotalElements());

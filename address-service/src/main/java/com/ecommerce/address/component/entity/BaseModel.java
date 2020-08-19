@@ -11,13 +11,13 @@ import javax.persistence.Version;
 public abstract class BaseModel extends Auditable<Long> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Version
 	private Integer version;
 
-	@Column
+	@Column(name = "is_delete")
 	private boolean isDelete;
 
 	public long getId() {

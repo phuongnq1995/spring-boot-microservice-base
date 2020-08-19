@@ -2,6 +2,7 @@ package com.ecommerce.address.component.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
@@ -17,9 +18,10 @@ public abstract class Auditable<U> {
 
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date createdDate;
+	@Column(name = "created_at")
+	protected Date createdAt;
 
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date lastModifiedDate;
+	protected Date modifiedAt;
 }

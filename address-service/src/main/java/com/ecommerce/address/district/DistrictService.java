@@ -20,7 +20,7 @@ public class DistrictService implements EcService<DistrictEntity, DistrictSource
 
     @Override
     public ResultSetData<DistrictSource> getListSource(DistrictSource source) {
-        Pageable pageable = PageRequest.of(source.getOffset(), source.getLimit());
+        Pageable pageable = PageRequest.of(source.getOffset() - 1, source.getLimit());
         Page<DistrictEntity> page = districtRepository.findByCondition(source.getCode(), source.getName(),
                 source.getCodeProvince(), pageable);
         return new ResultSetData<>(toResource(page.getContent()), page.getTotalElements());
