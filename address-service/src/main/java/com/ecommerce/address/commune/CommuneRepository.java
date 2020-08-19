@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 public interface CommuneRepository extends JpaRepository<CommuneEntity, Long>{
 
     @Query("SELECT p FROM CommuneEntity p Where p.isDelete = true and (:code is null or p.code = :code) "
-            + "and (:name is null or p.name = :name) and (:codeProvince is null or p.codeProvince = :codeProvince)"
+            + "and (:name is null or p.name like %:name%) and (:codeProvince is null or p.codeProvince = :codeProvince)"
             + " and (:codeDistrict is null or p.codeDistrict = :codeDistrict)")
     Page<CommuneEntity> findByCondition(@Param("code") String code, 
             @Param("name") String name, @Param("codeProvince") String codeProvince, @Param("codeDistrict") String codeDistrict, Pageable pageable);

@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface ProvinceRepository extends JpaRepository<ProvinceEntity, Long> {
 
-    @Query("SELECT p FROM ProvinceEntity p Where p.isDelete = true and (:code is null or p.code = :code) and (:name is null or p.name = :name)")
+    @Query("SELECT p FROM ProvinceEntity p Where p.isDelete = true and (:code is null or p.code = :code) "
+            + "and (:name is null or p.name like %:name%)")
     Page<ProvinceEntity> findByCodeAndName(@Param("code") String code, @Param("name") String name, Pageable pageable);
 }
