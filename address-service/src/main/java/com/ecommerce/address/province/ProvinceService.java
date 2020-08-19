@@ -28,10 +28,9 @@ public class ProvinceService implements EcService<ProvinceEntity, ProvinceSource
         return new ResultSetData<>(toResource(page.getContent()), page.getTotalPages());
     }
 
-	@Override
-	public List<ProvinceSource> toResource(List<ProvinceEntity> entity) {
-		
-		return entity.stream().map(ProvinceSource::new).collect(toList());
-	}
+    @Override
+    public List<ProvinceSource> toResource(List<ProvinceEntity> entity) {
+        return entity.stream().map(ProvinceSource::new).collect(toList());
+    }
 
 }
