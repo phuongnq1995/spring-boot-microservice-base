@@ -25,5 +25,6 @@
 		<module>config-server</module>
 		<module>product-service</module>
 		<module>gateway-server</module>
+		<module>category-service</module>
 	</modules>
 </project>
