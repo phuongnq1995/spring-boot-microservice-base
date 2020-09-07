@@ -26,5 +26,6 @@
 		<module>product-service</module>
 		<module>gateway-server</module>
 		<module>category-service</module>
+		<module>address-service</module>
 	</modules>
 </project>
