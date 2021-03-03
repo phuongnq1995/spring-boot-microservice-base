@@ -1,0 +1,85 @@
+version: '3.3'
+services:
+
+  database:
+    image: postgres
+    container_name: database
+    ports:
+      - "54320:5432"
+    environment:
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=category
+
+  redis:
+      image: redis
+      container_name: redis
+      ports:
+        - "6379:6379"
+
+  eureka-server:
+    container_name: eureka-server
+    build: ./eureka-server
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/health"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  config-server:
+    container_name: config-server
+    build: ./config-server
+    volumes:
+      - ./config-data:/var/config-data
+    ports:
+      - "8888:8888"
+    links:
+      - eureka-server
+    depends_on:
+      - eureka-server
+
+  product-service:
+    container_name: product-service
+    build: ./product-service
+    ports:
+      - "8090:8090"
+    links:
+      - eureka-server
+    restart: on-failure
+    depends_on:
+      - eureka-server
+      - config-server
+
+  category-service:
+    container_name: category-service
+    build: ./category-service
+    ports:
+      - "8081:8081"
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/category
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    links:
+      - eureka-server
+      - redis
+    restart: on-failure
+    depends_on:
+      - database
+      - eureka-server
+      - config-server
+
+  gateway-server:
+    container_name: gateway-server
+    build: ./gateway-server
+    ports:
+      - "8765:8765"
+    links:
+      - eureka-server
+    restart: on-failure
+    depends_on:
+      - eureka-server
+      - product-service
+
